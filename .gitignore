@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ===== PPE Safety Detection =====
+
+# model weights
+*.pt
+
+# Violation images and database
+data/
