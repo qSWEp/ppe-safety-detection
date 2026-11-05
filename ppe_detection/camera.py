@@ -14,4 +14,16 @@ class Camera:
         self.offline_since = None
         self.retry_count = 0
         
+    # Open the camera and update its status for main   
+    def open(self):
+        self.capture = cv2.VideoCapture(self.camera_id)
+        if self.capture.isOpened():
+            self.is_online = True
+            self.fps = self.capture.get(cv2.CAP_PROP_FPS)
+            return True
+        else:
+            self.capture.release()
+            return False
+        
+        
         
