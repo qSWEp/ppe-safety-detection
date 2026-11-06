@@ -28,6 +28,8 @@ class Camera:
         else:
             self.capture.release()
             logger.warning(f"Camera [{self.camera_id}] at the [{self.location}] is not responding")
+            # Heir reset capture object to Default for release()
+            self.capture = None
             return False
         
     # Read the capture after open
@@ -40,5 +42,14 @@ class Camera:
             self.is_online = False
             logger.warning(f"Camera [{self.camera_id}] at the [{self.location}] is offline")
         return ret, frame
-        
-        
+     
+    # Release the camera if it is in use (for example reconnection)   
+    def release(self):
+        if self.capture is None:
+            logger.debug(f"Camera [{self.camera_id}] at the [{self.location}] is already released")
+            return
+        # Reset object to Default Value
+        self.capture.release()
+        self.capture = None
+        self.is_online = False
+        logger.info(f"Camera [{self.camera_id}] at the [{self.location}] was released")         
