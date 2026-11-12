@@ -34,7 +34,7 @@ class Camera:
             return True
         else:
             self.capture.release()
-            # Heir reset capture object to Default for release()
+            # Here reset capture object to default for release()
             self.capture = None
             logger.warning(
                 f"Camera [{self.camera_id}] at the [{self.location}] is not responding"
@@ -43,7 +43,7 @@ class Camera:
 
     # Read the capture after open
     def read(self):
-        #  Stop if someone calls read() before open() or after the camera went offline
+        # Stop if someone calls read() before open() or after the camera went offline
         if not self.is_online:
             return False, None
         ret, frame = self.capture.read()
@@ -66,18 +66,18 @@ class Camera:
 
         return False
 
-    # reconnect the camera if it go offline and try to conecct based on the number in config.MAX_RETRIES
+    # Reconnect the camera if it goes offline and try to connect based on the number in config.MAX_RETRIES
     def reconnect(self):
         self.release()
         for attempt in range(config.MAX_RETRIES):
             logger.warning(
                 f"Trying to reconnect camera [{self.camera_id}] at the [{self.location}] attempt [{attempt + 1} of {config.MAX_RETRIES}]"
             )
-            # Here re call open() to Check if True
+            # Here recall open() to check if True
             if self.open():
                 return True
             time.sleep(config.RETRY_DELAY_SEC)
-        # Here if thir is no respones after compeliton all attempt
+        # Here if there is no response after completing all attempts
         self.offline_since = time.time()
         universal_time = time.gmtime(self.offline_since)
         readable = time.strftime("%Y-%m-%d %H:%M:%S", universal_time)
@@ -93,7 +93,7 @@ class Camera:
                 f"Camera [{self.camera_id}] at the [{self.location}] is already released"
             )
             return
-        # Reset object to Default Value
+        # Reset object to default value
         self.capture.release()
         self.capture = None
         self.is_online = False
