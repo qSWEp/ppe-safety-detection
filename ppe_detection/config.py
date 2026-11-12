@@ -2,6 +2,8 @@
 CAMERA_SOURCES = [0]
 # Reconnect attempts before marking a camera offline
 MAX_RETRIES = 3
+# How many sec do u want between attempts
+RETRY_DELAY_SEC = 2
 # Time between analyzed frames in (seconds)
 SAMPLE_INTERVAL_SEC = 0.2   # 200 ms
 # Key to close the display window
