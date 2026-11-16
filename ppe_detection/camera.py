@@ -79,10 +79,8 @@ class Camera:
             time.sleep(config.RETRY_DELAY_SEC)
         # Here if there is no response after completing all attempts
         self.offline_since = time.time()
-        universal_time = time.gmtime(self.offline_since)
-        readable = time.strftime("%Y-%m-%d %H:%M:%S", universal_time)
         logger.error(
-            f"Camera [{self.camera_id}] at the [{self.location}] is offline since [{readable}] UTC after [{config.MAX_RETRIES}] attempts"
+            f"Camera [{self.camera_id}] at the [{self.location}] is offline after [{config.MAX_RETRIES}] attempts"
         )
         return False
 
